@@ -1,0 +1,25 @@
+﻿@page
+@model AccessDeniedModel
+
+@{
+    ViewData["Title"] = "Доступ заборонено";
+}
+
+<section class="premium-empty">
+    <div class="empty-icon">
+        <i class="bi bi-shield-lock"></i>
+    </div>
+
+    <p class="section-label">ACCESS DENIED</p>
+
+    <h2>Доступ заборонено</h2>
+
+    <p>
+        У вас немає прав для перегляду цієї сторінки або запис належить іншому користувачу.
+    </p>
+
+    <div class="empty-actions">
+        <a asp-controller="Home" asp-action="Index" class="details-btn primary">На головну</a>
+        <a asp-controller="LibraryItems" asp-action="Index" class="details-btn secondary">До бібліотеки</a>
+    </div>
+</section>

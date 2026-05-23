@@ -1,0 +1,210 @@
+@model IEnumerable<WatchReadLibrary.Models.LibraryItem>
+
+@{
+    ViewData["Title"] = "Моя бібліотека";
+}
+
+<section class="library-page-header">
+    <div>
+        <p class="section-label">MY COLLECTION</p>
+        @if (ViewBag.Favorites == true)
+        {
+            <h1>Улюблене</h1>
+            <p>Добірка тайтлів, позначених як улюблені.</p>
+        }
+        else
+        {
+            <h1>Моя бібліотека</h1>
+            <p>Усі фільми, дорами, лакорни, манга, манхви, маньхуа та книги в одному місці.</p>
+        }
+    </div>
+
+    <a class="btn btn-primary" asp-action="Create">+ Додати запис</a>
+</section>
+
+<button type="button"
+        class="mobile-filter-toggle d-md-none"
+        onclick="toggleMobileFilters()">
+
+    <span>Фільтри</span>
+
+    <span id="filterArrow" class="filter-arrow">
+        ▼
+    </span>
+</button>
+
+<form method="get" class="library-filters" id="mobileFilters">
+    <div class="search-field">
+        <i class="bi bi-search"></i>
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               placeholder="Пошук за назвою..."
+               id="liveSearchInput" />
+    </div>
+
+    <div class="filter-select">
+        <select name="category" onchange="this.blur()">
+        <option value="">Усі категорії</option>
+            <option value="Фільми">Фільми</option>
+            <option value="Серіали">Серіали</option>
+            <option value="Аніме">Аніме</option>
+            <option value="Лакорни">Лакорни</option>
+            <option value="Дорами">Дорами</option>
+            <option value="Манга">Манга</option>
+            <option value="Манхва">Манхва</option>
+            <option value="Маньхуа">Маньхуа</option>
+            <option value="Книги">Книги</option>
+            <option value="Ранобе">Ранобе</option>
+            <option value="Новели">Новели</option>
+            <option value="Комікси">Комікси</option>
+            <option value="Фанфіки">Фанфіки</option>
+            <option value="Ігри">Ігри</option>
+    </select>
+    </div>
+
+    <div class="filter-select">
+        <select name="minRating" onchange="this.blur()">
+        <option value="">Будь-який рейтинг</option>
+        <option value="10">10/10</option>
+        <option value="9">від 9</option>
+        <option value="8">від 8</option>
+        <option value="7">від 7</option>
+        <option value="6">від 6</option>
+    </select>
+    </div>
+
+    <div class="filter-select">
+        <select name="sort" onchange="this.blur()">
+        <option value="newest">Спочатку нові</option>
+        <option value="rating">За рейтингом</option>
+        <option value="year_new">Новіші за роком</option>
+        <option value="year_old">Старіші за роком</option>
+        <option value="title">За назвою</option>
+    </select>
+    </div>
+
+    <label class="favorite-filter">
+        <input type="checkbox"
+               id="favoritesOnly"
+               name="favorites"
+               value="true"
+        @(ViewBag.Favorites == true ? "checked" : "") />
+
+        <span>Улюблене</span>
+    </label>
+
+    <button type="submit">Застосувати</button>
+    <a asp-action="Index" class="clear-filter">Скинути</a>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="empty-state premium-empty">
+        <div class="empty-icon">
+            <i class="bi bi-journal-bookmark"></i>
+        </div>
+
+        <p class="section-label">EMPTY COLLECTION</p>
+
+        <h2>Тут поки що порожньо</h2>
+
+        <p>
+            Записів за цими параметрами не знайдено. Спробуй змінити фільтри
+            або додай новий тайтл до своєї бібліотеки.
+        </p>
+
+        <div class="empty-actions">
+            <a asp-action="Create" class="details-btn primary add-item-btn">+ Додати запис</a>
+            <a class="details-btn secondary" asp-action="Index">Скинути фільтри</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="library-grid">
+        @foreach (var item in Model)
+        {
+            <div class="media-card" onclick="location.href='@Url.Action("Details", "LibraryItems", new { id = item.Id })'">
+                <div class="media-cover">
+                    @if (!string.IsNullOrWhiteSpace(item.CoverPath))
+                    {
+                        <img src="@item.CoverPath" alt="@item.Title" />
+                    }
+                    else
+                    {
+                        <div class="cover-placeholder">No cover</div>
+                    }
+
+                    <div class="card-badges">
+                        @if (item.Rating == 10)
+                        {
+                            <span class="badge-masterpiece">MASTERPIECE</span>
+                        }
+                        else if (item.Rating >= 9)
+                        {
+                            <span class="badge-top">TOP</span>
+                        }
+                        else if (item.Rating >= 8)
+                        {
+                            <span class="badge-great">GREAT</span>
+                        }
+                        else if (item.Rating > 0 && item.Rating <= 4)
+                        {
+                            <span class="badge-low">LOW RATED</span>
+                        }
+
+                        @if (item.CreatedAt >= DateTime.UtcNow.AddDays(-7))
+                        {
+                            <span class="badge-new">NEW</span>
+                        }
+
+                        @if (item.IsFavorite)
+                        {
+                            <span class="badge-fav">FAVORITE</span>
+                        }
+
+                    </div>
+
+                    <form asp-action="ToggleFavorite"
+                          asp-route-id="@item.Id"
+                          method="post"
+                          class="favorite-form ajax-favorite-form"
+                          onclick="event.stopPropagation()">
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit"
+                                class="favorite-badge @(item.IsFavorite ? "active" : "")">
+                            ♥
+                        </button>
+                    </form>
+                </div>
+
+                <div class="media-content">
+                    <div class="media-meta">
+                        <span>@item.Category</span>
+                        <span>@item.Status</span>
+                    </div>
+
+                    <h3>@item.Title (@item.Year)</h3>
+
+                    <div class="rating">★ @item.Rating / 10</div>
+
+                    <p class="media-description">
+    @(string.IsNullOrWhiteSpace(item.Description)
+        ? "Опис ще не додано."
+        : item.Description.Length > 90
+            ? item.Description.Substring(0, 90) + "..."
+            : item.Description)
+</p>
+
+                    <div class="card-actions">
+                        <a asp-action="Details" asp-route-id="@item.Id">Детальніше</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

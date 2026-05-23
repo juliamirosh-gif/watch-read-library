@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Головна";
+
+    var latestItems = ViewBag.LatestItems as List<WatchReadLibrary.Models.LibraryItem>;
+    var topItems = ViewBag.TopItems as List<WatchReadLibrary.Models.LibraryItem>;
+}
+<section class="home-main-hero">
+    <div class="hero-corner-decor hero-corner-left"></div>
+    <div class="hero-corner-decor hero-corner-right"></div>
+    <div class="home-main-content">
+        <p class="section-label">PERSONAL MEDIA LIBRARY</p>
+        <h1>Watch & Read Library</h1>
+        <p>
+            Твоя особиста бібліотека для фільмів, лакорнів, дорам, манги, манхв,
+            маньхуа та книг. Зберігай обкладинки, рейтинги, відгуки й улюблене.
+        </p>
+
+        <div class="hero-actions">
+            <a class="details-btn primary" asp-controller="LibraryItems" asp-action="Index">
+                Відкрити бібліотеку
+            </a>
+
+            <a class="details-btn secondary" asp-controller="LibraryItems" asp-action="Create">
+                Додати запис
+            </a>
+        </div>
+    </div>
+    <div class="hero-side-card">
+        <img src="~/images/d4fbbaf873c9377b3d442d5d6cd2d64d.jpg" alt="Library" />
+
+        <div class="hero-side-content">
+            <div class="line"></div>
+            <h3>Personal collection</h3>
+            <p>Track. Rate. Remember.</p>
+        </div>
+    </div>
+    
+</section>
+<section class="category-page">
+    <p class="section-label">CATEGORIES</p>
+    <h1 class="category-title">Обери розділ бібліотеки</h1>
+
+    <div class="category-icon-grid">
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Фільми" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-film"></i></div>
+            <h3>Фільми</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Серіали" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-collection-play"></i></div>
+            <h3>Серіали</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Аніме" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-stars"></i></div>
+            <h3>Аніме</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Лакорни" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-camera-reels"></i></div>
+            <h3>Лакорни</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Дорами" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-tv"></i></div>
+            <h3>Дорами</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Манга" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-book"></i></div>
+            <h3>Манга</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Манхва" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-journal-richtext"></i></div>
+            <h3>Манхва</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Маньхуа" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-journal-text"></i></div>
+            <h3>Маньхуа</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Книги" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-book-half"></i></div>
+            <h3>Книги</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Ранобе" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-file-text"></i></div>
+            <h3>Ранобе</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Новели" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-feather"></i></div>
+            <h3>Новели</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Комікси" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-layout-text-window-reverse"></i></div>
+            <h3>Комікси</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Фанфіки" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-pencil-square"></i></div>
+            <h3>Фанфіки</h3>
+        </a>
+
+        <a asp-controller="LibraryItems" asp-action="Index" asp-route-category="Ігри" class="category-icon-card">
+            <div class="category-visual"><i class="bi bi-controller"></i></div>
+            <h3>Ігри</h3>
+        </a>
+
+    </div>
+
+</section>
+
+<section class="action-card-grid">
+
+    <a class="action-big-card library-card"
+       asp-controller="LibraryItems"
+       asp-action="Index">
+
+        <span class="action-number">01</span>
+
+        <div class="action-icon">
+            <i class="bi bi-grid"></i>
+        </div>
+
+        <div>
+            <h2>Уся бібліотека</h2>
+            <p>Переглядай усі додані тайтли у вигляді красивих карток з обкладинками.</p>
+            <strong>Перейти →</strong>
+        </div>
+    </a>
+
+
+    <a class="action-big-card favorite-card"
+       asp-controller="LibraryItems"
+       asp-action="Index"
+       asp-route-favorites="true">
+
+        <span class="action-number">02</span>
+
+        <div class="action-icon">
+            <i class="bi bi-heart"></i>
+        </div>
+
+        <div>
+            <h2>Улюблене</h2>
+            <p>Окрема добірка історій, які найбільше сподобались.</p>
+            <strong>Перейти →</strong>
+        </div>
+    </a>
+
+
+    <a class="action-big-card create-card"
+       asp-controller="LibraryItems"
+       asp-action="Create">
+
+        <span class="action-number">03</span>
+
+        <div class="action-icon">
+            <i class="bi bi-pencil"></i>
+        </div>
+
+        <div>
+            <h2>Новий запис</h2>
+            <p>Додай назву, рік, опис, відгук, рейтинг, статус і обкладинку.</p>
+            <strong>Додати →</strong>
+        </div>
+    </a>
+
+</section>
+
+<section class="home-stats">
+    <div>
+        <strong>@ViewBag.TotalItems</strong>
+        <span>записів у бібліотеці</span>
+    </div>
+
+    <div>
+        <strong>@ViewBag.FavoriteItems</strong>
+        <span>улюблених тайтлів</span>
+    </div>
+
+    <div>
+        <strong>@ViewBag.AverageRating</strong>
+        <span>середній рейтинг</span>
+    </div>
+</section>
+
+@if (latestItems != null && latestItems.Any())
+{
+    <section class="home-carousel-section">
+
+        <div class="home-section-header">
+            <p class="section-label">LATEST</p>
+            <h2>Останні додані</h2>
+        </div>
+
+        <div class="mini-carousel">
+            @foreach (var item in latestItems)
+            {
+                <a class="mini-card" asp-controller="LibraryItems" asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@item.CoverPath"
+                         alt="@item.Title"
+                         onclick="openPosterPreview('@item.CoverPath', '@item.Title')" />
+                    <div>
+                        <span>@item.Category</span>
+                        <h4>@item.Title</h4>
+                        <p>@item.Rating / 10</p>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="latest-corner-decor latest-corner-left"></div>
+        <div class="latest-corner-decor latest-corner-right"></div>
+    </section>
+}

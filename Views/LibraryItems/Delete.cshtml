@@ -1,0 +1,47 @@
+@model WatchReadLibrary.Models.LibraryItem
+
+@{
+    ViewData["Title"] = "Видалення";
+}
+
+<section class="delete-shell">
+    <div class="delete-card">
+        <div class="delete-cover">
+            @if (!string.IsNullOrWhiteSpace(Model.CoverPath))
+            {
+                <img src="@Model.CoverPath" alt="@Model.Title" />
+            }
+            else
+            {
+                <div class="cover-placeholder">No cover</div>
+            }
+        </div>
+
+        <div class="delete-content">
+            <p class="section-label">DELETE ITEM</p>
+
+            <h1>Видалити запис?</h1>
+
+            <p class="delete-warning">
+                Цю дію не можна буде скасувати. Запис буде повністю видалено з бібліотеки.
+            </p>
+
+            <div class="delete-title">
+                <span>@Model.Category</span>
+                <strong>@Model.Title (@Model.Year)</strong>
+            </div>
+
+            <form asp-action="Delete" method="post" class="delete-actions">
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="details-btn danger">
+                    Видалити
+                </button>
+
+                <a asp-action="Details" asp-route-id="@Model.Id" class="details-btn secondary">
+                    Скасувати
+                </a>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - WatchReadLibrary</title>
+
+    <script type="importmap"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WatchReadLibrary.styles.css" asp-append-version="true" />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#c7372c">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<script>
+    if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js");
+    }
+</script>
+
+<body>
+    <div class="dust-layer"></div>
+    <div class="page-loader">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+    </div>
+
+    <header class="main-header">
+        <nav class="custom-navbar">
+            <a class="logo" asp-controller="Home" asp-action="Index">
+                WatchReadLibrary
+            </a>
+
+            @{
+                var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                var isFavorites = Context.Request.Query["favorites"] == "true";
+            }
+
+            <button class="burger-btn" type="button" onclick="toggleMobileMenu()">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="nav-menu">
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                    Головна
+                </a>
+
+                <a asp-controller="LibraryItems"
+                   asp-action="Index"
+                   class="@(currentController == "LibraryItems" && !isFavorites ? "active" : "")">
+                    Бібліотека
+                </a>
+
+                <a asp-controller="LibraryItems"
+                   asp-action="Index"
+                   asp-route-favorites="true"
+                   class="@(currentController == "LibraryItems" && isFavorites ? "active" : "")">
+                    Улюблене
+                </a>
+
+                <a asp-controller="LibraryItems"
+                   asp-action="Create"
+                   class="@(currentController == "LibraryItems" && currentAction == "Create" ? "active" : "")">
+                    Додати запис
+                </a>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Profile"
+                       asp-action="Index"
+                       class="@(currentController == "Profile" ? "active" : "")">
+                        Профіль
+                    </a>
+
+                    <a asp-area="Identity"
+                       asp-page="/Account/Manage/Index">
+                        @User.Identity.Name
+                    </a>
+
+                    <form asp-area="Identity"
+                          asp-page="/Account/Logout"
+                          method="post"
+                          class="logout-form">
+                        <button type="submit">
+                            Вийти
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-area="Identity"
+                       asp-page="/Account/Login">
+                        Увійти
+                    </a>
+
+                    <a asp-area="Identity"
+                       asp-page="/Account/Register"
+                       class="register-btn">
+                        Реєстрація
+                    </a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - WatchReadLibrary -
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="toast-message success-toast">
+            <i class="bi bi-check-circle"></i>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
+    <div class="poster-modal" id="posterModal" onclick="closePosterPreview()">
+        <button class="poster-close" type="button">×</button>
+        <img id="posterModalImage" src="" alt="" />
+        <p id="posterModalTitle"></p>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

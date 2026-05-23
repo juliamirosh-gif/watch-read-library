@@ -1,0 +1,147 @@
+@model WatchReadLibrary.Models.LibraryItem
+
+@{
+    ViewData["Title"] = "Додати запис";
+}
+
+<section class="form-shell">
+    <div class="form-header">
+        <p class="section-label">NEW ITEM</p>
+        <h1>Додати запис</h1>
+        <p>Заповни інформацію про фільм, книгу, дораму, мангу або інший тайтл.</p>
+    </div>
+
+    <form asp-action="Create" class="pretty-form" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group full-width">
+            <label asp-for="Title">Назва</label>
+            <input asp-for="Title" class="form-control" placeholder="Назва тайтлу..." />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label asp-for="CoverFile">Обкладинка</label>
+
+                <div class="upload-zone" id="uploadZone">
+
+                    <input asp-for="CoverFile"
+                           id="coverInput"
+                           type="file"
+                           accept="image/*" />
+
+                    <div class="upload-content">
+                        <i class="bi bi-cloud-arrow-up"></i>
+
+                        <h3>Перетягни обкладинку сюди</h3>
+
+                        <p>або натисни для вибору файлу</p>
+                    </div>
+
+                    <img id="previewImage" class="upload-preview" />
+
+                </div>
+
+                <span asp-validation-for="CoverFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Category">Категорія</label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">Оберіть категорію</option>
+                    <option value="Фільми">Фільми</option>
+                    <option value="Серіали">Серіали</option>
+                    <option value="Аніме">Аніме</option>
+                    <option value="Лакорни">Лакорни</option>
+                    <option value="Дорами">Дорами</option>
+                    <option value="Манга">Манга</option>
+                    <option value="Манхва">Манхва</option>
+                    <option value="Маньхуа">Маньхуа</option>
+                    <option value="Книги">Книги</option>
+                    <option value="Ранобе">Ранобе</option>
+                    <option value="Новели">Новели</option>
+                    <option value="Комікси">Комікси</option>
+                    <option value="Фанфіки">Фанфіки</option>
+                    <option value="Ігри">Ігри</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Rating">Рейтинг</label>
+                <input asp-for="Rating" class="form-control" type="number" min="0" max="10" placeholder="0–10" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Year">Рік</label>
+                <input asp-for="Year" class="form-control" type="number" placeholder="2024" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status">Статус</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Оберіть статус</option>
+                    <option value="Планую">Планую</option>
+                    <option value="У процесі">У процесі</option>
+                    <option value="Завершено">Завершено</option>
+                    <option value="На паузі">На паузі</option>
+                    <option value="Покинуто">Покинуто</option>
+                    <option value="Перечитую / Передивляюсь">
+                        Перечитую / Передивляюсь
+                    </option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CoverPath">Посилання на обкладинку</label>
+                <input asp-for="CoverPath" class="form-control" placeholder="https://..." />
+                <span asp-validation-for="CoverPath" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Опис</label>
+            <textarea asp-for="Description" class="form-control big-textarea" placeholder="Короткий опис сюжету..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Review">Відгук</label>
+            <textarea asp-for="Review" class="form-control big-textarea" placeholder="Твої враження..."></textarea>
+            <span asp-validation-for="Review" class="text-danger"></span>
+        </div>
+
+        <label class="favorite-check">
+            <input asp-for="IsFavorite" />
+            <span>Додати в улюблене</span>
+        </label>
+
+        <div class="form-actions">
+            <button type="submit" class="details-btn primary">Зберегти запис</button>
+            <a asp-action="Index" class="details-btn secondary">Назад до бібліотеки</a>
+        </div>
+    </form>
+  
+</section>
+<script>
+    function previewCover(event) {
+        const file = event.target.files[0];
+        const image = document.getElementById('coverPreview');
+        const box = document.getElementById('coverPreviewBox');
+
+        if (file) {
+            image.src = URL.createObjectURL(file);
+            box.style.display = 'block';
+        } else {
+            image.src = '';
+            box.style.display = 'none';
+        }
+    }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,133 @@
+﻿@model WatchReadLibrary.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Профіль";
+}
+
+<section class="profile-dashboard">
+    <div class="profile-dashboard-card">
+
+        <div class="profile-avatar">
+            @if (!string.IsNullOrWhiteSpace(Model.AvatarPath))
+            {
+                <img src="@Model.AvatarPath" alt="Аватар" />
+            }
+            else
+            {
+                <div class="default-avatar">
+                    @Model.Email.Substring(0, 1).ToUpper()
+                </div>
+            }
+        </div>
+
+        <div class="profile-main-info">
+            <p class="section-label">USER PROFILE</p>
+
+            <h1>Профіль</h1>
+
+            <p class="profile-email">
+                @Model.Email
+            </p>
+
+            <form asp-action="UploadAvatar"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="avatar-form">
+
+                @Html.AntiForgeryToken()
+
+                <input type="file"
+                       name="avatarFile"
+                       accept=".jpg,.jpeg,.png,.webp" />
+
+                <button type="submit" class="details-btn primary">
+                    Оновити аватар
+                </button>
+            </form>
+
+            @if (!string.IsNullOrWhiteSpace(Model.AvatarPath))
+            {
+                <form asp-action="DeleteAvatar"
+                      method="post"
+                      class="avatar-delete-form">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="details-btn secondary delete-avatar-btn">
+                        Видалити аватар
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="profile-dashboard-stats">
+        <div>
+            <strong>@Model.TotalItems</strong>
+            <span>записів у бібліотеці</span>
+        </div>
+
+        <div>
+            <strong>@Model.FavoriteItems</strong>
+            <span>улюблених тайтлів</span>
+        </div>
+
+        <div>
+            <strong>@Model.CompletedItems</strong>
+            <span>завершено</span>
+        </div>
+
+        <div>
+            <strong>@Model.AverageRating</strong>
+            <span>середній рейтинг</span>
+        </div>
+    </div>
+
+    @if (Model.LatestItems.Any())
+    {
+        <section class="profile-dashboard-latest">
+
+            <p class="section-label">RECENT ACTIVITY</p>
+
+            <h2>Останні додані</h2>
+
+            <div class="profile-latest-grid">
+
+                @foreach (var item in Model.LatestItems)
+                {
+                    <a asp-controller="LibraryItems"
+                       asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="profile-latest-card">
+
+                        @if (!string.IsNullOrWhiteSpace(item.CoverPath))
+                        {
+                            <img src="@item.CoverPath" alt="@item.Title" />
+                        }
+
+                        <div>
+                            <strong>@item.Title</strong>
+                            <span>@item.Rating / 10</span>
+                        </div>
+                    </a>
+                }
+
+            </div>
+        </section>
+    }
+
+    <div class="profile-dashboard-actions">
+        <a asp-controller="LibraryItems"
+           asp-action="Index"
+           class="details-btn primary">
+            Відкрити бібліотеку
+        </a>
+
+        <a asp-area="Identity"
+           asp-page="/Account/Manage/Index"
+           class="details-btn secondary">
+            Налаштування акаунта
+        </a>
+    </div>
+</section>
