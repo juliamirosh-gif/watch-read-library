@@ -365,8 +365,8 @@ D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\bin\Debug\net10.0\ru\Micro
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
-D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\ek8eeoati7-{0}-0f5r2pr2mm-0f5r2pr2mm.gz
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\rj5y00x42y-{0}-z15ld9388m-z15ld9388m.gz
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\69oj8tg5xy-{0}-m8hg23xayr-m8hg23xayr.gz
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\taba9qmz3p-{0}-896vgo5z3a-896vgo5z3a.gz
+D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\WatchReadLibrary.sourcelink.json
