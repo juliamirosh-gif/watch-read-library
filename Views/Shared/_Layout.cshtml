@@ -141,6 +141,22 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+        registration.unregister();
+        }
+        });
+
+        caches.keys().then(function (names) {
+        for (let name of names) {
+        caches.delete(name);
+        }
+        });
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
