@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WatchReadLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d6dc09e810ee0708742d71cb2b84d59f2cd468a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1bc8a12c97197d5c74af725ef03d4b4e8bfe3c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("WatchReadLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WatchReadLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

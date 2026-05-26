@@ -10,20 +10,15 @@ namespace WatchReadLibrary.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-    name: "UserId",
-    table: "LibraryItems",
-    type: "text",
-    nullable: true);
-
+            migrationBuilder.Sql("""
+        ALTER TABLE "LibraryItems"
+        ADD COLUMN IF NOT EXISTS "UserId" text;
+    """);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-    name: "UserId",
-    table: "LibraryItems");
 
         }
     }
