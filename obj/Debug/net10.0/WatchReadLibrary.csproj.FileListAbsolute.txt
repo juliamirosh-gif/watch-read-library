@@ -370,3 +370,4 @@ D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compress
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\69oj8tg5xy-{0}-m8hg23xayr-m8hg23xayr.gz
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\compressed\taba9qmz3p-{0}-896vgo5z3a-896vgo5z3a.gz
 D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\WatchReadLibrary.sourcelink.json
+D:\WatchReadLibrary\WatchReadLibrary\WatchReadLibrary\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
