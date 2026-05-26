@@ -14,6 +14,7 @@ namespace WatchReadLibrary.Controllers
             _context = context;
         }
 
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
